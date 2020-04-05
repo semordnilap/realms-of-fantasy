@@ -1,8 +1,11 @@
 package net.marvy.core.gfx;
 
 import java.awt.Canvas;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
@@ -54,6 +57,10 @@ public class Screen {
 		
 		this.frame.setIconImage(GameResourceLoader.readImageFile("logo"));
 		
+		// Cursor cursor = Toolkit.getDefaultToolkit()
+		// 		.createCustomCursor(GameResourceLoader.readImageFile("cursor"), new Point(0, 0), "fantasy_cursor");
+		// this.canvas.setCursor(cursor);
+		
 		this.canvas.requestFocusInWindow();
 		this.canvas.createBufferStrategy(Constants.BUFF_STRATEGY);
 		
@@ -95,7 +102,7 @@ public class Screen {
 		if (subtitle == "" || subtitle == null) {
 			this.frame.setTitle(this.title);
 		} else {
-			this.frame.setTitle(this.title + subtitle);
+			this.frame.setTitle(this.title + " " + subtitle);
 		}
 	}
 
@@ -106,12 +113,12 @@ public class Screen {
 		this.pixels[index] = color;
 	}
 	
-//	public void addToPixel(int x, int y, int color) {
-//		int index = y * this.width + x;
-//		if(x < 0 || x >= this.width || y < 0 || y >= this.height || index >= this.pixels.length) return;
-//		
-//		this.pixels[index] = Misc.addColors(this.pixels[index], color);
-//	}
+	public void addToPixel(int x, int y, int color) {
+		int index = y * this.width + x;
+		if(x < 0 || x >= this.width || y < 0 || y >= this.height || index >= this.pixels.length) return;
+		
+		this.pixels[index] = Misc.addColors(this.pixels[index], color);
+	}
 
 	public void clearPixels(int color) {
 		for (int i = 0; i < this.pixels.length; i++)

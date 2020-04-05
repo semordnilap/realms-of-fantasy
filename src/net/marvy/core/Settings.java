@@ -4,7 +4,8 @@ import net.marvy.core.io.RawFileParser;
 
 public class Settings {
 	
-	public static Settings instance;
+	public static Settings MAIN;
+	public static Settings KEYCONFIG;
 
 	private RawFileParser parser;
 

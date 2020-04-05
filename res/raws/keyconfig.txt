@@ -1,0 +1,7 @@
+[MOVE_UP:w]
+[MOVE_DOWN:s]
+[MOVE_LEFT:a]
+[MOVE_RIGHT:d]
+
+[ZOOM_IN:+]
+[ZOOM_OUT:-]

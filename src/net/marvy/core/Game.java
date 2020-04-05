@@ -4,6 +4,8 @@ import org.tinylog.Logger;
 import org.tinylog.configuration.Configuration;
 
 import net.marvy.core.gfx.Screen;
+import net.marvy.sprites.Sprites;
+import net.marvy.sprites.Spritesheets;
 import net.marvy.states.StateMenu;
 import net.marvy.states.StatePlay;
 import net.marvy.states.StateTest;
@@ -21,16 +23,16 @@ public class Game {
 	public static void init() {
 		// First things first, we need to load settings - this way we can find
 		// out, whether to run debug mode or not.
-		Settings.instance = new Settings();
-		Settings.instance.loadFromRawFile("settings");
+		Settings.MAIN = new Settings();
+		Settings.MAIN.loadFromRawFile("settings");
 		
 		// If running debug mode, write debug messages as well
-		if(Settings.instance.getBoolean("debug_mode")) {
+		if(Settings.MAIN.getBoolean("debug_mode")) {
 			Configuration.set("writer.level", "debug");
 		}
 		
 		Logger.info("{} {}", Constants.TITLE_AND_VERSION, 
-				(Settings.instance.getBoolean("debug_mode") ? "[DEBUG MODE]" : ""));
+				(Settings.MAIN.getBoolean("debug_mode") ? "[DEBUG MODE]" : ""));
 		
 		// This is where the actual init starts!
 		Logger.info("Initializing...");
@@ -46,14 +48,23 @@ public class Game {
 		// Init the current game state
 		// TODO should we init all?
 		states[current_state].init();
-
-		// Init screen with settings
+		
 		Logger.debug("Creating display...");
-		Screen.instance = new Screen(Settings.instance.getInteger("screen_dimensions", 0),
-				Settings.instance.getInteger("screen_dimensions", 1), Constants.TITLE_AND_VERSION);
-
+		Screen.instance = new Screen(Settings.MAIN.getInteger("screen_dimensions", 0),
+				Settings.MAIN.getInteger("screen_dimensions", 1), Constants.TITLE_AND_VERSION);
+		
 		Logger.debug("Initializing input listener...");
 		GameListener.init();
+		
+		Logger.debug("Loading key configuration...");
+		Settings.KEYCONFIG = new Settings();
+		Settings.KEYCONFIG.loadFromRawFile("keyconfig");
+		
+		Logger.debug("Initializing spritesheets...");
+		Spritesheets.init();
+		
+		Logger.debug("Loading sprites...");
+		Sprites.init();
 
 		Logger.info("Initialization successful");
 		Screen.instance.show();
@@ -84,7 +95,7 @@ public class Game {
 				
 				second_counter += Constants.SKIP_TICKS;
 				if (second_counter >= 1000) {
-					Logger.debug("FPS: {}", fps); // TODO remove and show fps differently
+					Screen.instance.setSubtitle("(" + fps +" FPS)");
 					second_counter = 0;
 					fps = 0;
 					is_key_frame = true;
@@ -98,7 +109,7 @@ public class Game {
 		}
 	}
 	
-	/*
+	/**
 	 * Disposes of everything and stops the game. Called after game loop stops running.
 	 */
 	public static void stop() {
