@@ -13,7 +13,7 @@ public class RawFileParser {
 
 	String line_pattern = "[ \\t]*\\[(.+)\\].*";
 
-	Pattern p = Pattern.compile(this.line_pattern);
+	Pattern pattern = Pattern.compile(this.line_pattern);
 
 	Map<String, String[]> parse_map = null;
 
@@ -21,16 +21,16 @@ public class RawFileParser {
 		this.lines = GameResourceLoader.readRawFile(filename);
 	}
 
-	public void parse() { // TODO fix this fucking mess!
+	public void parse() {
 		Map<String, String[]> output = new HashMap<String, String[]>();
-		byte b;
-		int i;
-		String[] arrayOfString;
-		for (i = (arrayOfString = this.lines).length, b = 0; b < i;) {
-			String line = arrayOfString[b];
-			Matcher matcher = this.p.matcher(line);
+		
+		for (String line : this.lines) {
+			
+			Matcher matcher = this.pattern.matcher(line);
 			if (matcher.matches()) {
-				String[] args, data = matcher.group(1).split(":");
+				String[] data = matcher.group(1).split(":");
+				
+				String[] args;
 				String field = data[0];
 				if (data.length > 1) {
 					args = Arrays.copyOfRange(data, 1, data.length);
@@ -39,9 +39,10 @@ public class RawFileParser {
 				}
 				output.put(field, args);
 			} else {
-				System.out.println("Invalid line");
+				// System.out.println("Invalid line");
+				// Just ignore an invalid line
 			}
-			b++;
+			
 		}
 		this.parse_map = output;
 	}
@@ -122,20 +123,4 @@ public class RawFileParser {
 		
 		return i;
 	}
-
-//	public static void main(String[] args) {
-//		RawFileParser r = new RawFileParser("settings");
-//		r.parse();
-//		Map<String, String[]> output = r.getParseMap();
-//		for (Map.Entry<String, String[]> entry : output.entrySet()) {
-//			String key = entry.getKey();
-//			String[] value = entry.getValue();
-//			System.out.print(key + " : ");
-//			System.out.print(Arrays.toString(value) + "\n");
-//		}
-//		System.out.println("-------------------------------------------");
-//		System.out.println("Running debug mode: " + r.getArgAsBoolean("DEBUG_MODE", 0));
-//		System.out.println("Screen dimensions: " + r.getArgAsInteger("SCREEN_DIMENSIONS", 0) + "x"
-//				+ r.getArgAsInteger("SCREEN_DIMENSIONS", 1));
-//	}
 }

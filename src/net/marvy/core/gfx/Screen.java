@@ -48,7 +48,7 @@ public class Screen {
 		this.frame.add(this.canvas);
 		this.frame.pack();
 		
-		this.frame.setResizable(false);
+		this.frame.setResizable(Constants.SCREEN_RESIZABLE);
 		this.frame.setLocationRelativeTo(null);
 		this.frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		
@@ -127,7 +127,7 @@ public class Screen {
 		this.g.drawImage(this.image, 0, 0, this.width, this.height, null);
 		
 		// Show current Buffer. This throws a weird error when window closing - but causes nothing else.
-		// Just ignore the error!
+		// Just ignore the error! - possibly try and fix later (TODO)
 		try {
 			this.bs.show();
 		} catch (IllegalStateException e) {}

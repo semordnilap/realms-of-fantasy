@@ -90,6 +90,7 @@ public class Game {
 					is_key_frame = true;
 				}
 			}
+			
 			Screen.instance.render(is_key_frame);
 			if (is_key_frame)
 				is_key_frame = false;

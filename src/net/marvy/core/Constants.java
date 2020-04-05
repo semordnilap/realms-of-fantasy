@@ -1,8 +1,6 @@
 package net.marvy.core;
 
 public class Constants {
-	public static final boolean DEBUG = true;
-
 	public static final String TITLE = "Realms of Fantasy";
 
 	public static final int VERSION = 0;
@@ -18,8 +16,6 @@ public class Constants {
 
 	public static final int NUM_GAME_STATES = 5;
 
-	public static final int SCREEN_WIDTH = 640;
-	public static final int SCREEN_HEIGHT = 480;
-	public static final boolean SCREEN_RESIZABLE = false;
+	public static final boolean SCREEN_RESIZABLE = false; // TODO Should be true I guess..
 	public static final int BUFF_STRATEGY = 3;
 }
