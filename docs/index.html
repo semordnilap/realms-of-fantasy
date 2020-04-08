@@ -1,22 +1,48 @@
 <html>
 
-<head>
-<title> Realms of Fantasy : Main Page </title>
-<link href="stylesheet.css" rel="stylesheet">
-</head>
+	<head>
+		<title> Realms of Fantasy : Home </title>
+		<link href="stylesheet.css" rel="stylesheet">
+	</head>
+	
+	<script>
+	
+		var version = "v0.0.0";
+		
+		function load() {
+			document.getElementById("version").innerHTML = version;
+		}
+		window.onload = load;
+	
+	</script>
 
-<style>
-
-p {
-	font-family: 'HelvetiPixel';
-	font-weight: 500;
-	font-style: normal;
-}
-
-</style>
-
-<body>
-<p> This is a test webpage. </p>
-</body>
+	<body class="body">
+		<div class="content">
+			<div class="header">
+				<h1> Realms of Fantasy </h1>
+				<span class="relative">Current version: <span id="version"></span> | <a href="#">View version history</a></span>
+			</div>
+			<hr>
+			<div class="menu">
+				<ul>
+					<li><a href="home.html" target="frame">HOME</a></li>
+					<li><a href="about.html" target="frame">ABOUT</a></li>
+					<li><a href="download.html" target="frame">DOWNLOAD</a></li>
+					<li><a href="https://github.com/semordnilap/realms-of-fantasy" target="_blank">VIEW GITHUB</a></li>
+					<li><a href="contact.html" target="frame">CONTACT ME</a></li>
+					<!--<li><a href="https://www.patreon.com" target="_blank" id="support">SUPPORT</a></li>-->
+					<li><a href="#" id="support">SUPPORT</a></li>
+				</ul>
+			</div>
+			<hr>
+			<div class="main">
+				<iframe name="frame" src="home.html">Your browser doesn't support IFrames.</iframe>
+			</div>
+			<hr>
+			<div class="footer">
+				<p> This is a footer. </p>
+			</div>
+		</div>
+	</body>
 
 </html>
