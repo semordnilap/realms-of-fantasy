@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'HelvetiPixel';
+    src: url('font.woff') format('woff'),
+	     url('font.ttf')  format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
