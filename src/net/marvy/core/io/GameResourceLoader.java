@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 
 import javax.imageio.ImageIO;
 
-import org.tinylog.Logger;
+import net.marvy.core.Log;
 
 public class GameResourceLoader {
 	private static final String PREFIX_RAW = "raws/";
@@ -38,7 +38,7 @@ public class GameResourceLoader {
 			is.close();
 			br.close();
 		} catch (IOException e) {
-			Logger.error("Couldn't read raw file \"{}\".", new Object[] { filename });
+			Log.error("Couldn't read raw file \"{}\".", new Object[] { filename });
 		}
 		String[] lines = sb.toString().split("\n");
 		return lines;
@@ -49,7 +49,7 @@ public class GameResourceLoader {
 			return ImageIO.read(GameResourceLoader.class.getClassLoader()
 					.getResourceAsStream(PREFIX_IMG + filename + SUFFIX_IMG));
 		} catch (IOException e) {
-			Logger.warn("Couldn't find or read image file {}. Image set to null.", (PREFIX_IMG + filename + SUFFIX_IMG));
+			Log.warn("Couldn't find or read image file {}. Image set to null.", (PREFIX_IMG + filename + SUFFIX_IMG));
 			
 			return null;
 		}

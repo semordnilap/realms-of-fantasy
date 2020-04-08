@@ -1,8 +1,5 @@
 package net.marvy.core;
 
-import org.tinylog.Logger;
-import org.tinylog.configuration.Configuration;
-
 import net.marvy.core.gfx.Screen;
 import net.marvy.sprites.Sprites;
 import net.marvy.sprites.Spritesheets;
@@ -20,24 +17,24 @@ public class Game {
 	 * Initialize the whole game.
 	 * TODO should this be pre init, then load screen, then actual init?
 	 */
-	public static void init() {
-		// First things first, we need to load settings - this way we can find
-		// out, whether to run debug mode or not.
+	public static void init() {		
+		Log.info(Constants.TITLE_AND_VERSION);
+		
+		// Start init!
+		Log.info("Initializing...");
+		
+		// Load main settings - no reason to log it, debug is still not turned on, anyway
 		Settings.MAIN = new Settings();
 		Settings.MAIN.loadFromRawFile("settings");
 		
 		// If running debug mode, write debug messages as well
 		if(Settings.MAIN.getBoolean("debug_mode")) {
-			Configuration.set("writer.level", "debug");
+			Log.setMinSeverity(Log.DEBUG);
+			
+			Log.info("Running [DEBUG MODE]!");
 		}
-		
-		Logger.info("{} {}", Constants.TITLE_AND_VERSION, 
-				(Settings.MAIN.getBoolean("debug_mode") ? "[DEBUG MODE]" : ""));
-		
-		// This is where the actual init starts!
-		Logger.info("Initializing...");
 
-		Logger.debug("Setting up game states...");
+		Log.debug("Setting up game states...");
 		states = new State[Constants.NUM_GAME_STATES];
 
 		states[0] = new StateTest();
@@ -46,27 +43,27 @@ public class Game {
 		current_state = State.TEST; // TODO change to StateMenu ASAP
 
 		// Init the current game state
-		// TODO should we init all?
+		// TODO should we init all the states?
 		states[current_state].init();
 		
-		Logger.debug("Creating display...");
+		Log.debug("Creating display...");
 		Screen.instance = new Screen(Settings.MAIN.getInteger("screen_dimensions", 0),
 				Settings.MAIN.getInteger("screen_dimensions", 1), Constants.TITLE_AND_VERSION);
 		
-		Logger.debug("Initializing input listener...");
+		Log.debug("Initializing input listener...");
 		GameListener.init();
 		
-		Logger.debug("Loading key configuration...");
+		Log.debug("Loading key configuration...");
 		Settings.KEYCONFIG = new Settings();
 		Settings.KEYCONFIG.loadFromRawFile("keyconfig");
 		
-		Logger.debug("Initializing spritesheets...");
+		Log.debug("Initializing spritesheets...");
 		Spritesheets.init();
 		
-		Logger.debug("Loading sprites...");
+		Log.debug("Loading sprites...");
 		Sprites.init();
 
-		Logger.info("Initialization successful");
+		Log.info("Initialization successful");
 		Screen.instance.show();
 	}
 
@@ -74,7 +71,7 @@ public class Game {
 	 * Main game loop method.
 	 */
 	public static void run() {
-		Logger.info("Running game loop...");
+		Log.info("Running game loop...");
 
 		int loops = 0;
 		long next_tick = System.currentTimeMillis();
@@ -113,7 +110,7 @@ public class Game {
 	 * Disposes of everything and stops the game. Called after game loop stops running.
 	 */
 	public static void stop() {
-		Logger.info("Terminating...");
+		Log.info("Terminating...");
 
 		Screen.instance.dispose();
 		System.exit(0);

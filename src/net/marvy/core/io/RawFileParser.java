@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.tinylog.Logger;
+import net.marvy.core.Log;
 
 public class RawFileParser {
 	String[] lines;
@@ -49,7 +49,7 @@ public class RawFileParser {
 
 	public Map<String, String[]> getParseMap() {
 		if (this.parse_map == null) {
-			Logger.error("Raw file has not been parsed yet!");
+			Log.error("Raw file has not been parsed yet!");
 			return new HashMap<String, String[]>();
 		}
 		return this.parse_map;
@@ -59,14 +59,14 @@ public class RawFileParser {
 		field = field.toUpperCase();
 		
 		if (this.parse_map == null) {
-			Logger.error("Raw file has not been parsed yet!");
+			Log.error("Raw file has not been parsed yet!");
 			return new String[0];
 		}
 		
 		if (this.parse_map.containsKey(field)) {
 			return this.parse_map.get(field);
 		} else {
-			Logger.error("Raw file doesn't contain field: {}", field);
+			Log.error("Raw file doesn't contain field: {}", field);
 			return new String[0];
 		}
 	}
@@ -78,7 +78,7 @@ public class RawFileParser {
 		if (index < f.length) {
 			s = f[index];
 		} else {
-			Logger.error("Raw file argument index ({}[{}]) out of bounds.",
+			Log.error("Raw file argument index ({}[{}]) out of bounds.",
 					field, index);
 		}
 		
@@ -97,7 +97,7 @@ public class RawFileParser {
 				o = false;
 			}
 		} else {
-			Logger.error("Raw file argument index ({}[{}]) out of bounds.",
+			Log.error("Raw file argument index ({}[{}]) out of bounds.",
 					field, index);
 		}
 		
@@ -113,11 +113,11 @@ public class RawFileParser {
 			try {
 				i = Integer.decode(arg);
 			} catch (NumberFormatException e) {
-				Logger.error("Couldn't decode raw file argument ({}[{}]) as int.",
+				Log.error("Couldn't decode raw file argument ({}[{}]) as int.",
 						field, index);
 			}
 		} else {
-			Logger.error("Raw file argument index ({}[{}]) out of bounds.",
+			Log.error("Raw file argument index ({}[{}]) out of bounds.",
 					field, index);
 		}
 		

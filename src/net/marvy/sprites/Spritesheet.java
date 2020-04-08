@@ -2,8 +2,7 @@ package net.marvy.sprites;
 
 import java.awt.image.BufferedImage;
 
-import org.tinylog.Logger;
-
+import net.marvy.core.Log;
 import net.marvy.core.io.GameResourceLoader;
 
 public class Spritesheet {
@@ -14,7 +13,7 @@ public class Spritesheet {
 	
 	public Spritesheet(String filename, int sprite_width, int sprite_height) {	
 		
-		Logger.debug("Loading spritesheet '{}'", filename);
+		Log.debug("Loading spritesheet '{}'", filename);
 		
 		this.filename = filename;
 		this.sprite_width = sprite_width;
@@ -23,7 +22,7 @@ public class Spritesheet {
 		this.image = GameResourceLoader.readImageFile(filename);
 		
 		if((this.image.getWidth() % sprite_width != 0) || (this.image.getHeight() % sprite_height != 0)) { 
-			Logger.error("Invalid spritesheet image file size: {}x{} ('{}')", this.image.getWidth(), this.image.getHeight(), filename);
+			Log.error("Invalid spritesheet image file size: {}x{} ('{}')", this.image.getWidth(), this.image.getHeight(), filename);
 		}
 	}
 	

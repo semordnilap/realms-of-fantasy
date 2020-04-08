@@ -2,8 +2,7 @@ package net.marvy.sprites;
 
 import java.awt.image.BufferedImage;
 
-import org.tinylog.Logger;
-
+import net.marvy.core.Log;
 import net.marvy.core.gfx.Misc;
 import net.marvy.core.gfx.Screen;
 import net.marvy.core.io.GameResourceLoader;
@@ -16,7 +15,7 @@ public class Sprite {
 	Spritesheet spritesheet;
 	
 	public Sprite(String filename) {
-		Logger.debug("Loading sprite '{}'", filename);
+		Log.trace("Loading sprite '{}'", filename);
 		
 		BufferedImage image = GameResourceLoader.readImageFile(filename);
 		
@@ -27,7 +26,7 @@ public class Sprite {
 	}
 	
 	public Sprite(Spritesheet spritesheet, int sprite_pos_x, int sprite_pos_y) {
-		Logger.debug("Loading sprite ({},{}) from spritesheet '{}'", sprite_pos_x, sprite_pos_y, spritesheet.getFilename());
+		Log.trace("Loading sprite ({},{}) from spritesheet '{}'", sprite_pos_x, sprite_pos_y, spritesheet.getFilename());
 		
 		this.width = spritesheet.getSpriteWidth();
 		this.height = spritesheet.getSpriteHeight();

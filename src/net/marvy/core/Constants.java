@@ -18,4 +18,6 @@ public class Constants {
 
 	public static final boolean SCREEN_RESIZABLE = false; // TODO Should be true I guess..
 	public static final int BUFF_STRATEGY = 3;
+	
+	public static final int CHUNK_SIZE = 16;
 }
